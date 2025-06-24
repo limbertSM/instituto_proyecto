@@ -1,0 +1,58 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="container-fluid">
+  <div class="row">
+    <!-- Sidebar -->
+    <nav class="col-md-2 d-none d-md-block bg-light sidebar p-3">
+      <h6 class="sidebar-heading">Menú Docente</h6>
+      <ul class="nav flex-column">
+        <li class="nav-item"><a class="nav-link active" href="#">Inicio</a></li>
+        <a class="nav-link" href="{{ url_for('docente.cursos_docente') }}">Mis Cursos</a>
+        <li class="nav-item"><a class="nav-link" href="#">Calificaciones</a></li>
+        <li class="nav-item"><a class="nav-link text-danger" href="{{ url_for('auth.logout') }}">Cerrar sesión</a></li>
+      </ul>
+    </nav>
+
+    <!-- Main content -->
+    <main class="col-md-10 ms-sm-auto px-md-4">
+      <div class="pt-4 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Panel Docente</h1>
+        <p class="lead">Bienvenido, {{ current_user.nombre }} {{ current_user.apellido }}</p>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card text-white bg-info mb-3">
+            <div class="card-header">Cursos asignados</div>
+            <div class="card-body">
+              <h5 class="card-title">5</h5>
+              <p class="card-text">Cursos que impartes este semestre.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card text-white bg-success mb-3">
+            <div class="card-header">Calificaciones pendientes</div>
+            <div class="card-body">
+              <h5 class="card-title">12</h5>
+              <p class="card-text">Calificaciones que debes ingresar.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card text-white bg-warning mb-3">
+            <div class="card-header">Noticias recientes</div>
+            <div class="card-body">
+              <h5 class="card-title">3</h5>
+              <p class="card-text">Últimas noticias del instituto.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+{% endblock %}

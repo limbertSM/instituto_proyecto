@@ -1,0 +1,32 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4 text-primary">Editar Usuario</h2>
+
+    <form method="POST" action="{{ url_for('admin.editar_usuario', id=usuario.id) }}">
+        <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="nombre" name="nombre" value="{{ usuario.nombre }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="apellido" class="form-label">Apellido</label>
+            <input type="text" class="form-control" id="apellido" name="apellido" value="{{ usuario.apellido }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="correo" class="form-label">Correo</label>
+            <input type="email" class="form-control" id="correo" name="correo" value="{{ usuario.correo }}" required>
+        </div>
+       <div class="mb-3">
+    <label for="rol" class="form-label">Rol</label>
+    <select class="form-select" id="rol" name="rol" required>
+        <option value="1" {% if usuario.rol_id == 1 %}selected{% endif %}>Admin</option>
+        <option value="2" {% if usuario.rol_id == 2 %}selected{% endif %}>Docente</option>
+        <option value="3" {% if usuario.rol_id == 3 %}selected{% endif %}>Estudiante</option>
+    </select>
+</div>
+        <button type="submit" class="btn btn-primary">Actualizar</button>
+        <a href="{{ url_for('admin.listar_admin') }}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %}

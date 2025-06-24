@@ -3,14 +3,13 @@ from flask_login import login_user, logout_user, login_required
 from . import auth_bp
 from .forms import LoginForm
 from ..models.usuario import Usuario
-from werkzeug.security import check_password_hash
 
 @auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
     if form.validate_on_submit():
         usuario = Usuario.query.filter_by(correo=form.correo.data).first()
-        if usuario and check_password_hash(usuario.contraseña, form.contraseña.data):
+        if usuario and usuario.contraseña == form.contraseña.data:
             login_user(usuario)
             # Redirección según rol
             if usuario.rol.nombre == 'admin':
@@ -27,4 +26,8 @@ def login():
 @login_required
 def logout():
     logout_user()
+    return redirect(url_for('auth.login'))
+
+@auth_bp.route('/')
+def home():
     return redirect(url_for('auth.login'))

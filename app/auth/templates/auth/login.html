@@ -1,18 +1,40 @@
 {% extends 'layout.html' %}
+
 {% block content %}
-<div class="container mt-5">
-    <h2>Iniciar sesión</h2>
-    <form method="POST">
+<div class="container mt-5" style="max-width: 500px;">
+    <h2 class="mb-4">Iniciar Sesión</h2>
+    
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <form method="POST" novalidate>
         {{ form.hidden_tag() }}
-        <div class="form-group">
-            {{ form.correo.label }} {{ form.correo(class="form-control") }}
+
+        <div class="mb-3">
+            {{ form.correo.label(class="form-label") }}
+            {{ form.correo(class="form-control" + (" is-invalid" if form.correo.errors else "")) }}
+            {% for error in form.correo.errors %}
+                <div class="invalid-feedback">{{ error }}</div>
+            {% endfor %}
         </div>
-        <div class="form-group">
-            {{ form.contraseña.label }} {{ form.contraseña(class="form-control") }}
+
+        <div class="mb-3">
+            {{ form.contraseña.label(class="form-label") }}
+            {{ form.contraseña(class="form-control" + (" is-invalid" if form.contraseña.errors else "")) }}
+            {% for error in form.contraseña.errors %}
+                <div class="invalid-feedback">{{ error }}</div>
+            {% endfor %}
         </div>
-        <div class="form-group mt-3">
-            {{ form.submit(class="btn btn-primary") }}
-        </div>
+
+        {{ form.submit(class="btn btn-primary w-100") }}
     </form>
 </div>
 {% endblock %}
